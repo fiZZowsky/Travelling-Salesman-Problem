@@ -19,16 +19,23 @@ int main()
     int n;
     srand((unsigned int)time(NULL));
 
-    do {
-        printf("Enter the number of points you want to draw: ");
+    printf("Enter the number of points you want to draw: ");
+    while (scanf_s("%d", &n) != 1) //dopóki nie uda się wczytać
+    {
+        printf("Error! Enter the number of points you want to draw:");
         scanf_s("%d", &n);
-    } while (n < 0);
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF); //pętla wyciągająca znaki z bufora
+    }
+    while (n < 1) {
+        printf("Error! Enter the number of points you want to draw:");
+        scanf_s("%d", &n);
+    }
 
     struct Point* points = getPoints(n);
     int* road = findRoad(n, points);
 
     drawRoad(n, points, road);
-
     return 0;
 }
 
